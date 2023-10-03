@@ -32,6 +32,6 @@ Test-driven development using JUnit Jupiter shall be practiced and all task mana
 ## Deployment Plan
 Once the application is complete, launch4j shall be used to wrap the completed jar and bundle the proper JRE into a windows executable.
 ## Maintenance Plan
-* Bugs should be reported via the GitHub issues section.
+* Bugs and feature requests should be reported via the GitHub issues section.
 * Feature updates should be documented and developed using GitHub projects, issues, and milestones.
 ## Appendix
