@@ -1,6 +1,6 @@
 package com.cainfe.task_manager;
 
-public enum TaskStatus {
+public enum Status {
 	INCOMPLETE,
 	COMPLETE
 }

@@ -2,7 +2,7 @@ package com.cainfe.task_manager;
 
 public class Task {
 	private String title;
-	private TaskStatus status;
+	private Status status;
 	
 	/**
 	 * 
@@ -10,7 +10,7 @@ public class Task {
 	 */
 	public Task(String title) {
 		this.setTitle(title);
-		this.setStatus(TaskStatus.INCOMPLETE);
+		this.setStatus(Status.INCOMPLETE);
 	}
 	
 	public String getTitle() {
@@ -21,11 +21,25 @@ public class Task {
 		this.title = title;
 	}
 	
-	public TaskStatus getStatus() {
+	public Status getStatus() {
 		return this.status;
 	}
 	
-	public void setStatus(TaskStatus status) {
+	public void setStatus(Status status) {
 		this.status = status;
+	}
+	
+	public static Status getDefaultStatus() {
+		return Status.INCOMPLETE;
+	}
+	
+	public boolean equals(Object anObject) {
+		if (anObject instanceof Task) {
+			Task otherTask = (Task) anObject;
+			return ((this.title == otherTask.title) &&
+					(this.status == otherTask.status));
+		} else {
+			return false;
+		}
 	}
 }
