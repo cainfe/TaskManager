@@ -31,7 +31,7 @@ class TaskTest {
 	}
 	
 	@Test
-	public void testGetDefaultStatusd() {
+	public void testGetDefaultStatus() {
 		assertEquals(Status.INCOMPLETE, Task.getDefaultStatus());
 	}
 	
