@@ -37,9 +37,8 @@ class TaskTest {
 	
 	@Test
 	public void testEqual() {
-		Object obj = new Object();
-		assertNotEquals(obj, task);
-		
+		assertNotEquals(task, new Object());
+
 		Task task1 = new Task("task1");
 		Task task2 = new Task("task2");
 		assertNotEquals(task1,task2);

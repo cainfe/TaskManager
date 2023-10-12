@@ -32,11 +32,12 @@ public class Task {
 	public static Status getDefaultStatus() {
 		return Status.INCOMPLETE;
 	}
-	
+
+	@Override
 	public boolean equals(Object anObject) {
 		if (anObject instanceof Task) {
 			Task otherTask = (Task) anObject;
-			return ((this.title == otherTask.title) &&
+			return ((this.title.equals(otherTask.title)) &&
 					(this.status == otherTask.status));
 		} else {
 			return false;
