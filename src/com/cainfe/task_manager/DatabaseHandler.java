@@ -65,7 +65,7 @@ public class DatabaseHandler {
 		Statement statement = connection.createStatement();
 		statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " ("
 				+ COLUMN_TASKS_TITLE + " TEXT PRIMARY KEY,"
-				+ COLUMN_TASKS_STATUS + "Status TEXT NOT NULL DEFAULT " + Task.getDefaultStatus()
+				+ COLUMN_TASKS_STATUS + " TEXT NOT NULL DEFAULT " + Task.getDefaultStatus()
 				+ ") WITHOUT ROWID;");
 		statement.close();
 	}
