@@ -3,6 +3,7 @@ package com.cainfe.task_manager;
 public class Task {
 	private String title;
 	private Status status;
+	private int id;
 
 	/**
 	 *
@@ -12,7 +13,15 @@ public class Task {
 		this.setTitle(title);
 		this.setStatus(Status.INCOMPLETE);
 	}
-	
+
+	public void setIdIfNotSet(int id) {
+		if (this.id == 0) this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
 	public String getTitle() {
 		return this.title;
 	}
@@ -35,11 +44,9 @@ public class Task {
 
 	@Override
 	public boolean equals(Object anObject) {
-		System.out.println("here");
 		if (anObject instanceof Task) {
 			Task otherTask = (Task) anObject;
-			return ((this.title.equals(otherTask.title)) &&
-					(this.status == otherTask.status));
+			return this.getId() == otherTask.getId();
 		} else {
 			return false;
 		}

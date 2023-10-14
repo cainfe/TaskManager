@@ -16,7 +16,18 @@ class TaskTest {
 	public void setUp() {
 		task = new Task("The initial task");
 	}
-	
+
+	@Test
+	public void testSetGetID() {
+		task.setIdIfNotSet(1);
+		assertEquals(1,task.getId());
+		task.setIdIfNotSet(2);
+		assertEquals(1,task.getId());
+		Task task2 = new Task("task2");
+		task2.setIdIfNotSet(2);
+		assertEquals(2, task2.getId());
+	}
+
 	@Test
 	public void testSetGetTitle() {
 		assertEquals("The initial task", task.getTitle());
@@ -38,24 +49,17 @@ class TaskTest {
 
 	@Test
 	public void testEqual() {
-		assertNotEquals(task, new Object());
-
-		Task task1 = new Task("task1");
-		Task task2 = new Task("task2");
-		assertNotEquals(task1,task2);
-
-		Task task3 = new Task("task");
-		Task task4 = new Task("task");
-		assertEquals(task3, task4);
-
-		Task task5 = new Task("task");
-		Task task6 = new Task("task");
-		task6.setStatus(Status.COMPLETE);
-		assertNotEquals(task5,task6);
-
-		Task task7 = new Task("task7");
-		Task task8 = new Task("task8");
-		task8.setStatus(Status.COMPLETE);
-		assertNotEquals(task7,task8);
+		Task task1 = new Task("test1");
+		task1.setIdIfNotSet(1);
+		assertNotEquals(new Object(), task1);
+		
+		Task task2 = new Task("test2");
+		task2.setIdIfNotSet(2);
+		assertNotEquals(task1, task2);
+		
+		Task task3 = new Task("task3");
+		task3.setIdIfNotSet(1);
+		assertEquals(task1, task3);
+		
 	}
 }
