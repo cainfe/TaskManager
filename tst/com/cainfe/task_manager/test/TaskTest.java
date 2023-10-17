@@ -53,11 +53,11 @@ class TaskTest {
 		assertNotEquals(task1, new Object());
 		assertEquals(task1, new Task("task1"));
 		assertNotEquals(task1, new Task("task2"));
-		
+
 		Task task2 = new Task("task1");
 		task2.setIdIfNotSet(1);
 		assertNotEquals(task1,task2);
-		
+
 		Task task3 = new Task("task1");
 		task3.setStatus(Status.COMPLETE);
 		assertNotEquals(task1,task3);

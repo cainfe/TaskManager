@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 public class DatabaseHandler {
 	private Connection connection;
@@ -47,7 +46,7 @@ public class DatabaseHandler {
 			}
 		}
 		preparedStatement.executeBatch();
-		
+
 		statement =  "INSERT INTO " + TABLE_TASKS;
 		statement += " (";
 		statement += COLUMN_TASKS_TITLE + ", ";
@@ -65,14 +64,14 @@ public class DatabaseHandler {
 	}
 
 	public Task getTask(int id) throws SQLException {
-		String statement = "SELECT " 
-				+ COLUMN_TASKS_ID + ", " 
-				+ COLUMN_TASKS_TITLE + ", " 
-				+ COLUMN_TASKS_STATUS 
-				+ " FROM " + TABLE_TASKS 
+		String statement = "SELECT "
+				+ COLUMN_TASKS_ID + ", "
+				+ COLUMN_TASKS_TITLE + ", "
+				+ COLUMN_TASKS_STATUS
+				+ " FROM " + TABLE_TASKS
 				+ " WHERE " + COLUMN_TASKS_ID + " = ?;";
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
-			
+
 		preparedStatement.setString(1, id + "");
 
 		ResultSet resultSet = preparedStatement.executeQuery();

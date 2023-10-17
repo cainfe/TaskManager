@@ -47,7 +47,7 @@ public class Task {
 		if (!(anObject instanceof Task)) return false;
 		else {
 			Task otherTask = (Task) anObject;
-			return this.getId() == otherTask.getId() 
+			return this.getId() == otherTask.getId()
 					&& this.getTitle().equals(otherTask.getTitle())
 					&& this.getStatus() == otherTask.getStatus();
 		}
