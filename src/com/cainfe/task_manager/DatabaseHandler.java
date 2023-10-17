@@ -13,6 +13,7 @@ public class DatabaseHandler {
 	private final String TABLE_TASKS = "tasks";
 	private final String COLUMN_TASKS_TITLE = "Title";
 	private final String COLUMN_TASKS_STATUS = "Status";
+	private final String COLUMN_TASKS_ID = "Id";
 
 	public DatabaseHandler() throws SQLException {
 	}
@@ -30,48 +31,65 @@ public class DatabaseHandler {
 	public void insertTasks(Task[] tasks) throws SQLException {
 		this.createTasksTable();
 
-		String statement =  "INSERT INTO " + TABLE_TASKS + " ("
-				+ COLUMN_TASKS_TITLE + ", "
-				+ COLUMN_TASKS_STATUS
-				+ ") VALUES (?, ?);";
+		String statement =  "INSERT INTO " + TABLE_TASKS;
+		statement += " (";
+		statement += COLUMN_TASKS_ID + ", ";
+		statement += COLUMN_TASKS_TITLE + ", ";
+		statement += COLUMN_TASKS_STATUS;
+		statement += ") VALUES (?, ?, ?);";
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 		for (Task task : tasks) {
-			preparedStatement.setString(1, task.getTitle());
-			preparedStatement.setString(2, task.getStatus().toString());
-			preparedStatement.addBatch();
+			if (task.getId() != 0) {
+				preparedStatement.setString(1, task.getId() + "");
+				preparedStatement.setString(2, task.getTitle());
+				preparedStatement.setString(3, task.getStatus().toString());
+				preparedStatement.addBatch();
+			}
+		}
+		preparedStatement.executeBatch();
+		
+		statement =  "INSERT INTO " + TABLE_TASKS;
+		statement += " (";
+		statement += COLUMN_TASKS_TITLE + ", ";
+		statement += COLUMN_TASKS_STATUS;
+		statement += ") VALUES (?, ?);";
+		preparedStatement = connection.prepareStatement(statement);
+		for (Task task : tasks) {
+			if (task.getId() == 0) {
+				preparedStatement.setString(1, task.getTitle());
+				preparedStatement.setString(2, task.getStatus().toString());
+				preparedStatement.addBatch();
+			}
 		}
 		preparedStatement.executeBatch();
 	}
 
-	public Task getTask(String title) throws SQLException {
-		String[] titles = new String[1];
-		titles[0] = title;
-		return this.getTasks(titles)[0];
-	}
-
-	public Task[] getTasks(String[] titles) throws SQLException {
-		ArrayList<Task> tasks = new ArrayList<>();
-
-		String statement = "SELECT " + COLUMN_TASKS_TITLE + ", " + COLUMN_TASKS_STATUS + " FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASKS_TITLE + " = ?;";
+	public Task getTask(int id) throws SQLException {
+		String statement = "SELECT " 
+				+ COLUMN_TASKS_ID + ", " 
+				+ COLUMN_TASKS_TITLE + ", " 
+				+ COLUMN_TASKS_STATUS 
+				+ " FROM " + TABLE_TASKS 
+				+ " WHERE " + COLUMN_TASKS_ID + " = ?;";
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
-		for (String title : titles) {
-			preparedStatement.setString(1, title);
+			
+		preparedStatement.setString(1, id + "");
 
-			ResultSet resultSet = preparedStatement.executeQuery();
-			Task task = new Task(resultSet.getString(COLUMN_TASKS_TITLE));
-			task.setStatus(Status.valueOf(resultSet.getString(COLUMN_TASKS_STATUS)));
-			tasks.add(task);
-		}
+		ResultSet resultSet = preparedStatement.executeQuery();
+		Task task = new Task(resultSet.getString(COLUMN_TASKS_TITLE));
+		task.setStatus(Status.valueOf(resultSet.getString(COLUMN_TASKS_STATUS)));
+		task.setIdIfNotSet(Integer.parseInt(resultSet.getString(COLUMN_TASKS_ID)));
 
-		return tasks.toArray(new Task[tasks.size()]);
+		return task;
 	}
 
 	private void createTasksTable() throws SQLException {
 		Statement statement = connection.createStatement();
 		statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " ("
-				+ COLUMN_TASKS_TITLE + " TEXT PRIMARY KEY,"
+				+ COLUMN_TASKS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ COLUMN_TASKS_TITLE + " TEXT, "
 				+ COLUMN_TASKS_STATUS + " TEXT NOT NULL DEFAULT " + Task.getDefaultStatus()
-				+ ") WITHOUT ROWID;");
+				+ ");");
 		statement.close();
 	}
 }

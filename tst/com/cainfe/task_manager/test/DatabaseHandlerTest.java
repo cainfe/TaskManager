@@ -35,8 +35,13 @@ class DatabaseHandlerTest {
 	void testInsertGetTask() throws Exception {
 		String title = "test task";
 		Task task = new Task(title);
+		Task taskWithId = new Task(title);
+		taskWithId.setIdIfNotSet(3);
 		databaseHandler.insertTask(task);
-		assertEquals(task, databaseHandler.getTask(title));
+		task.setIdIfNotSet(1);
+		databaseHandler.insertTask(taskWithId);
+		assertEquals(task, databaseHandler.getTask(1));
+		assertEquals(taskWithId, databaseHandler.getTask(3));
 	}
 
 }
