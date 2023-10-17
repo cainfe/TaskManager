@@ -48,7 +48,7 @@ public class Task {
 		else {
 			Task otherTask = (Task) anObject;
 			return this.getId() == otherTask.getId() 
-					&& this.getTitle() == otherTask.getTitle()
+					&& this.getTitle().equals(otherTask.getTitle())
 					&& this.getStatus() == otherTask.getStatus();
 		}
 	}
