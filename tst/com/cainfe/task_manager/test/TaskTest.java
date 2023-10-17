@@ -49,17 +49,17 @@ class TaskTest {
 
 	@Test
 	public void testEqual() {
-		Task task1 = new Task("test1");
-		task1.setIdIfNotSet(1);
-		assertNotEquals(new Object(), task1);
+		Task task1 = new Task("task1");
+		assertNotEquals(task1, new Object());
+		assertEquals(task1, new Task("task1"));
+		assertNotEquals(task1, new Task("task2"));
 		
-		Task task2 = new Task("test2");
-		task2.setIdIfNotSet(2);
-		assertNotEquals(task1, task2);
+		Task task2 = new Task("task1");
+		task2.setIdIfNotSet(1);
+		assertNotEquals(task1,task2);
 		
-		Task task3 = new Task("task3");
-		task3.setIdIfNotSet(1);
-		assertEquals(task1, task3);
-		
+		Task task3 = new Task("task1");
+		task3.setStatus(Status.COMPLETE);
+		assertNotEquals(task1,task3);
 	}
 }

@@ -44,11 +44,12 @@ public class Task {
 
 	@Override
 	public boolean equals(Object anObject) {
-		if (anObject instanceof Task) {
+		if (!(anObject instanceof Task)) return false;
+		else {
 			Task otherTask = (Task) anObject;
-			return this.getId() == otherTask.getId();
-		} else {
-			return false;
+			return this.getId() == otherTask.getId() 
+					&& this.getTitle() == otherTask.getTitle()
+					&& this.getStatus() == otherTask.getStatus();
 		}
 	}
 }
