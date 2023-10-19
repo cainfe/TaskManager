@@ -9,8 +9,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cainfe.task_manager.DatabaseHandler;
-import com.cainfe.task_manager.Task;
+import com.cainfe.task_manager.model.Task;
+import com.cainfe.task_manager.service.DatabaseHandler;
 
 class DatabaseHandlerTest {
 	private DatabaseHandler databaseHandler;
@@ -18,29 +18,30 @@ class DatabaseHandlerTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		databaseHandler = new DatabaseHandler();
-		databaseHandler.connect("tasks.db");
+		databaseHandler.connect("testtasks.db");
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		// TODO: Close database connection
+		databaseHandler.close();
+		new File("testtasks.db").delete();
 	}
 
 	@Test
 	void testConnect() throws Exception {
-		assertTrue(new File("tasks.db").exists());
+		assertTrue(new File("testtasks.db").exists());
 	}
 
 	@Test
 	void testInsertGetTask() throws Exception {
 		String title = "test task";
-		Task task = new Task(title);
+		Task taskWithoutId = new Task(title);
 		Task taskWithId = new Task(title);
 		taskWithId.setIdIfNotSet(3);
-		databaseHandler.insertTask(task);
-		task.setIdIfNotSet(1);
+		databaseHandler.insertTask(taskWithoutId);
+		taskWithoutId.setIdIfNotSet(1);
 		databaseHandler.insertTask(taskWithId);
-		assertEquals(task, databaseHandler.getTask(1));
+		assertEquals(taskWithoutId, databaseHandler.getTask(1));
 		assertEquals(taskWithId, databaseHandler.getTask(3));
 	}
 

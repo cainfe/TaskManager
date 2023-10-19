@@ -1,4 +1,4 @@
-package com.cainfe.task_manager;
+package com.cainfe.task_manager.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,15 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.cainfe.task_manager.model.Status;
+import com.cainfe.task_manager.model.Task;
+
 public class DatabaseHandler {
 	private Connection connection;
 	private final String TABLE_TASKS = "tasks";
 	private final String COLUMN_TASKS_TITLE = "Title";
 	private final String COLUMN_TASKS_STATUS = "Status";
 	private final String COLUMN_TASKS_ID = "Id";
-
-	public DatabaseHandler() throws SQLException {
-	}
 
 	public void connect(String url) throws SQLException {
 		connection = DriverManager.getConnection("jdbc:sqlite:" + url);
@@ -90,5 +90,9 @@ public class DatabaseHandler {
 				+ COLUMN_TASKS_STATUS + " TEXT NOT NULL DEFAULT " + Task.getDefaultStatus()
 				+ ");");
 		statement.close();
+	}
+
+	public void close() throws SQLException {
+		connection.close();
 	}
 }

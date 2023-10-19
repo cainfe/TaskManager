@@ -1,4 +1,4 @@
-package com.cainfe.task_manager;
+package com.cainfe.task_manager.model;
 
 public enum Status {
 	INCOMPLETE,

@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cainfe.task_manager.Status;
-import com.cainfe.task_manager.Task;
+import com.cainfe.task_manager.model.Status;
+import com.cainfe.task_manager.model.Task;
 
 class TaskTest {
 	Task task;
