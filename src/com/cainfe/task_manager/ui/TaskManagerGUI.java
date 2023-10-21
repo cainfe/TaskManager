@@ -14,13 +14,14 @@ import javax.swing.border.EmptyBorder;
 import com.cainfe.task_manager.service.ExitApplication;
 
 public class TaskManagerGUI extends JFrame {
-
+	private ExitApplication exitApplication;
 	private JPanel contentPane;
 
 	public TaskManagerGUI() {
 		setTitle("Task Manager");
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 300, 450);
+		this.setExitApplication();
 
 		this.addMenuBar();
 
@@ -32,7 +33,7 @@ public class TaskManagerGUI extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				new ExitApplication().actionPerformed(null);
+				exitApplication.actionPerformed(null);
 			}
 		});
 	}
@@ -44,7 +45,12 @@ public class TaskManagerGUI extends JFrame {
 		JMenu fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
 
-		JMenuItem exitMenuItem = new JMenuItem(new ExitApplication());
+		JMenuItem exitMenuItem = new JMenuItem(exitApplication);
 		fileMenu.add(exitMenuItem);
+	}
+
+	private void setExitApplication() {
+		exitApplication = new ExitApplication();
+		exitApplication.setParentFrame(this);
 	}
 }

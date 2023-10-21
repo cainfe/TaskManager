@@ -3,6 +3,7 @@ package com.cainfe.task_manager.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.swing.Action;
+import javax.swing.JFrame;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,5 +31,13 @@ class ExitApplicationTest {
 	@Test
 	void testActionPerformed() throws Exception {
 		// TODO: Test exit action JOptionPane optionPane = mock(JOptionPane.class);
+	}
+
+	@Test
+	void testGetSetParentFrame() throws Exception {
+		assertEquals(null, action.getParentFrame());
+		JFrame testFrame = new JFrame();
+		action.setParentFrame(testFrame);
+		assertEquals(testFrame, action.getParentFrame());
 	}
 }
