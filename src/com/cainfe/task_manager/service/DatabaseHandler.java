@@ -30,7 +30,7 @@ public class DatabaseHandler {
 	public void insertTasks(Task[] tasks) throws SQLException {
 		this.createTasksTable();
 
-		String statement =  "INSERT INTO " + TABLE_TASKS;
+		String statement = "INSERT INTO " + TABLE_TASKS;
 		statement += " (";
 		statement += COLUMN_TASKS_ID + ", ";
 		statement += COLUMN_TASKS_TITLE + ", ";
@@ -47,7 +47,7 @@ public class DatabaseHandler {
 		}
 		preparedStatement.executeBatch();
 
-		statement =  "INSERT INTO " + TABLE_TASKS;
+		statement = "INSERT INTO " + TABLE_TASKS;
 		statement += " (";
 		statement += COLUMN_TASKS_TITLE + ", ";
 		statement += COLUMN_TASKS_STATUS;
@@ -64,12 +64,8 @@ public class DatabaseHandler {
 	}
 
 	public Task getTask(int id) throws SQLException {
-		String statement = "SELECT "
-				+ COLUMN_TASKS_ID + ", "
-				+ COLUMN_TASKS_TITLE + ", "
-				+ COLUMN_TASKS_STATUS
-				+ " FROM " + TABLE_TASKS
-				+ " WHERE " + COLUMN_TASKS_ID + " = ?;";
+		String statement = "SELECT " + COLUMN_TASKS_ID + ", " + COLUMN_TASKS_TITLE + ", " + COLUMN_TASKS_STATUS
+				+ " FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASKS_ID + " = ?;";
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 
 		preparedStatement.setString(1, id + "");
@@ -84,11 +80,9 @@ public class DatabaseHandler {
 
 	private void createTasksTable() throws SQLException {
 		Statement statement = connection.createStatement();
-		statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " ("
-				+ COLUMN_TASKS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ COLUMN_TASKS_TITLE + " TEXT, "
-				+ COLUMN_TASKS_STATUS + " TEXT NOT NULL DEFAULT " + Task.getDefaultStatus()
-				+ ");");
+		statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " (" + COLUMN_TASKS_ID
+				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TASKS_TITLE + " TEXT, " + COLUMN_TASKS_STATUS
+				+ " TEXT NOT NULL DEFAULT " + Task.getDefaultStatus() + ");");
 		statement.close();
 	}
 

@@ -20,9 +20,9 @@ class TaskTest {
 	@Test
 	public void testSetGetID() {
 		task.setIdIfNotSet(1);
-		assertEquals(1,task.getId());
+		assertEquals(1, task.getId());
 		task.setIdIfNotSet(2);
-		assertEquals(1,task.getId());
+		assertEquals(1, task.getId());
 		Task task2 = new Task("task2");
 		task2.setIdIfNotSet(2);
 		assertEquals(2, task2.getId());
@@ -56,10 +56,10 @@ class TaskTest {
 
 		Task task2 = new Task("task1");
 		task2.setIdIfNotSet(1);
-		assertNotEquals(task1,task2);
+		assertNotEquals(task1, task2);
 
 		Task task3 = new Task("task1");
 		task3.setStatus(Status.COMPLETE);
-		assertNotEquals(task1,task3);
+		assertNotEquals(task1, task3);
 	}
 }

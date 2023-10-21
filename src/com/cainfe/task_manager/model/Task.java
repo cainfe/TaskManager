@@ -15,7 +15,8 @@ public class Task {
 	}
 
 	public void setIdIfNotSet(int id) {
-		if (this.id == 0) this.id = id;
+		if (this.id == 0)
+			this.id = id;
 	}
 
 	public int getId() {
@@ -44,11 +45,11 @@ public class Task {
 
 	@Override
 	public boolean equals(Object anObject) {
-		if (!(anObject instanceof Task)) return false;
+		if (!(anObject instanceof Task))
+			return false;
 		else {
 			Task otherTask = (Task) anObject;
-			return this.getId() == otherTask.getId()
-					&& this.getTitle().equals(otherTask.getTitle())
+			return this.getId() == otherTask.getId() && this.getTitle().equals(otherTask.getTitle())
 					&& this.getStatus() == otherTask.getStatus();
 		}
 	}
