@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 public class ExitApplication extends AbstractAction {
 	private static final String NAME = "Exit";

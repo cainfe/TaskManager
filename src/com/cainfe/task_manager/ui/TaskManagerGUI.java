@@ -21,7 +21,7 @@ public class TaskManagerGUI extends JFrame {
 		setTitle("Task Manager");
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 300, 450);
-		this.setExitApplication();
+		this.setupExitApplication();
 
 		this.addMenuBar();
 
@@ -49,7 +49,7 @@ public class TaskManagerGUI extends JFrame {
 		fileMenu.add(exitMenuItem);
 	}
 
-	private void setExitApplication() {
+	private void setupExitApplication() {
 		exitApplication = new ExitApplication();
 		exitApplication.setParentFrame(this);
 	}
