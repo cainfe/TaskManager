@@ -18,9 +18,7 @@ public class ExitApplication extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int confirmationInput = JOptionPane.showConfirmDialog(this.parentFrame, "Are you sure you want to exit?");
-		if (confirmationInput == 0)
-			System.exit(0);
+		System.exit(0);
 	}
 
 	public void setParentFrame(JFrame parentFrame) {
