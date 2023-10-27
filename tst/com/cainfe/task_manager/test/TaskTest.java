@@ -81,10 +81,11 @@ class TaskTest {
 	
 	@Test
 	public void testToString() throws Exception {
-		assertEquals("The task 'The initial task' is INCOMPLETE.", task.toString());
+		assertEquals("Task{id=0, title='The initial task', status='INCOMPLETE'}", task.toString());
 		
 		Task task2 = new Task("Do the laundry");
+		task2.setIdIfNotSet(7);
 		task2.setStatus(Status.COMPLETE);
-		assertEquals("The task 'Do the laundry' is COMPLETE.", task2.toString());
+		assertEquals("Task{id=7, title='Do the laundry', status='COMPLETE'}", task2.toString());
 	}
 }

@@ -64,6 +64,10 @@ public class Task {
 	
 	@Override
 	public String toString() {
-		return "The task '" + this.getTitle() + "' is " + this.getStatus() + ".";
+		return "Task{" +
+				"id=" + this.getId() +
+				", title='" + this.getTitle() + "'" +
+				", status='" + this.getStatus() + "'" +
+				"}";
 	}
 }
