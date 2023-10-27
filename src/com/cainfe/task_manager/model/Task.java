@@ -1,5 +1,8 @@
 package com.cainfe.task_manager.model;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 public class Task {
 	private String title;
 	private Status status;
@@ -52,5 +55,15 @@ public class Task {
 			return this.getId() == otherTask.getId() && this.getTitle().equals(otherTask.getTitle())
 					&& this.getStatus() == otherTask.getStatus();
 		}
+	}
+
+	public boolean isEquivalentTo(Task otherTask) {
+		return this.getTitle().equals(otherTask.getTitle()) &&
+				this.getStatus() == otherTask.getStatus();
+	}
+	
+	@Override
+	public String toString() {
+		return "The task '" + this.getTitle() + "' is " + this.getStatus() + ".";
 	}
 }
