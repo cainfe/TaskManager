@@ -24,8 +24,7 @@ public class DatabaseHandler {
 	}
 
 	public void insertTask(Task task) throws SQLException {
-		Task[] tasks = new Task[1];
-		tasks[0] = task;
+		Task[] tasks = {task};
 		this.insertTasks(tasks);
 	}
 
@@ -66,16 +65,10 @@ public class DatabaseHandler {
 	}
 
 	public Task getTask(int id) throws SQLException {
-		this.ensureTasksTableExists();
-
 		Task retrievedTask = null;
-		String statement = "SELECT " + COLUMN_TASKS_ID + ", " + COLUMN_TASKS_TITLE + ", " + COLUMN_TASKS_STATUS
-				+ " FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASKS_ID + " = ?;";
-		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 
-		preparedStatement.setString(1, id + "");
+		ResultSet resultSet = this.selectTasks(COLUMN_TASKS_ID + ", " + COLUMN_TASKS_TITLE + ", " + COLUMN_TASKS_STATUS, COLUMN_TASKS_ID + " = " + id);
 
-		ResultSet resultSet = preparedStatement.executeQuery();
 		if (resultSet.next()) {
 			retrievedTask = new Task(resultSet.getString(COLUMN_TASKS_TITLE));
 			retrievedTask.setStatus(Status.valueOf(resultSet.getString(COLUMN_TASKS_STATUS)));
@@ -87,13 +80,10 @@ public class DatabaseHandler {
 	}
 
 	public Task[] getAllTasks() throws SQLException {
-		this.ensureTasksTableExists();
+		Task[] retrievedTasks;
 
-		Task retrievedTasks[];
-		String statement = "SELECT * FROM " + TABLE_TASKS;
-		PreparedStatement preparedStatement = connection.prepareStatement(statement);
+		ResultSet resultSet = this.selectTasks("*");
 
-		ResultSet resultSet = preparedStatement.executeQuery();
 		List<Task> tasks = new ArrayList<>();
 		while (resultSet.next()) {
 			Task task = new Task(resultSet.getString(COLUMN_TASKS_TITLE));
@@ -105,6 +95,26 @@ public class DatabaseHandler {
 
 		retrievedTasks = tasks.toArray(new Task[tasks.size()]);
 		return retrievedTasks;
+	}
+
+	public ResultSet selectTasks(String properties, String conditions) throws SQLException {
+		this.ensureTasksTableExists();
+		if (properties == null || properties.isBlank()) {
+			throw new IllegalArgumentException("The properties parameter cannot be null or empty.");
+		}
+
+		String statement = "SELECT " + properties + " FROM " + TABLE_TASKS;
+		if (!(conditions == null || conditions.isBlank())) {
+			statement += " WHERE " + conditions;
+		}
+		statement += ";";
+
+		PreparedStatement preparedStatement = connection.prepareStatement(statement);
+		return preparedStatement.executeQuery();
+	}
+
+	public ResultSet selectTasks(String properties) throws SQLException {
+		return this.selectTasks(properties, null);
 	}
 
 	private void ensureTasksTableExists() throws SQLException {
@@ -119,5 +129,3 @@ public class DatabaseHandler {
 		connection.close();
 	}
 }
-
-//TODO: thought - enum containing all database querry strings and perhaps classes to handle parsing the output???
