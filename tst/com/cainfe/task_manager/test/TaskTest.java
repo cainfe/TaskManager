@@ -64,25 +64,25 @@ class TaskTest {
 		task3.setStatus(Status.COMPLETE);
 		assertNotEquals(task1, task3);
 	}
-	
+
 	@Test
 	public void testIsEquivalentTo() throws Exception {
 		assertTrue(task.isEquivalentTo(new Task("The initial task")));
 		assertFalse(task.isEquivalentTo(new Task("a different title")));
-		
+
 		Task taskWithDifferentStatus = new Task("The initial task");
 		taskWithDifferentStatus.setStatus(Status.COMPLETE);
 		assertFalse(task.isEquivalentTo(taskWithDifferentStatus));
-		
+
 		Task taskWithDifferentId = new Task("The initial task");
 		taskWithDifferentId.setIdIfNotSet(7);
 		assertTrue(task.isEquivalentTo(taskWithDifferentId));
 	}
-	
+
 	@Test
 	public void testToString() throws Exception {
 		assertEquals("Task{id=0, title='The initial task', status='INCOMPLETE'}", task.toString());
-		
+
 		Task task2 = new Task("Do the laundry");
 		task2.setIdIfNotSet(7);
 		task2.setStatus(Status.COMPLETE);

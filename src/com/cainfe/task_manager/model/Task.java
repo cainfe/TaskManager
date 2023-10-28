@@ -61,7 +61,7 @@ public class Task {
 		return this.getTitle().equals(otherTask.getTitle()) &&
 				this.getStatus() == otherTask.getStatus();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Task{" +

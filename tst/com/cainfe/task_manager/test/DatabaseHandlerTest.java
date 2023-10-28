@@ -47,11 +47,11 @@ class DatabaseHandlerTest {
 		assertEquals(taskWithoutId, databaseHandler.getTask(1));
 		assertEquals(taskWithId, databaseHandler.getTask(3));
 	}
-	
+
 	@Test
 	void testGetAllTasks() throws Exception {
 		List<Task> insertedTasks = new ArrayList<>();
-		
+
 		Task task1 = new Task("hello");
 		task1.setIdIfNotSet(1);
 		Task task2 = new Task("Hello to you");
@@ -61,17 +61,17 @@ class DatabaseHandlerTest {
 		insertedTasks.add(task1);
 		insertedTasks.add(task2);
 		insertedTasks.add(task3);
-		
+
 		for (Task task : insertedTasks) {
 			databaseHandler.insertTask(task);
 		}
-		
+
 		List<Task> returnedTasks = Arrays.asList(databaseHandler.getAllTasks());
 
 		assertEquals(3, returnedTasks.size());
 		System.out.println(Arrays.toString(insertedTasks.toArray()));
 		System.out.println(Arrays.toString(returnedTasks.toArray()));
-		
+
 		assertTrue(returnedTasks.containsAll(insertedTasks));
 	}
 
