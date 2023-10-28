@@ -30,7 +30,7 @@ public class DatabaseHandler {
 	}
 
 	public void insertTasks(Task[] tasks) throws SQLException {
-		this.createTasksTable();
+		this.ensureTasksTableExists();
 
 		String statement = "INSERT INTO " + TABLE_TASKS;
 		statement += " (";
@@ -66,7 +66,9 @@ public class DatabaseHandler {
 	}
 
 	public Task getTask(int id) throws SQLException {
-		Task retrievedTask;
+		this.ensureTasksTableExists();
+
+		Task retrievedTask = null;
 		String statement = "SELECT " + COLUMN_TASKS_ID + ", " + COLUMN_TASKS_TITLE + ", " + COLUMN_TASKS_STATUS
 				+ " FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASKS_ID + " = ?;";
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -74,15 +76,19 @@ public class DatabaseHandler {
 		preparedStatement.setString(1, id + "");
 
 		ResultSet resultSet = preparedStatement.executeQuery();
-		retrievedTask = new Task(resultSet.getString(COLUMN_TASKS_TITLE));
-		retrievedTask.setStatus(Status.valueOf(resultSet.getString(COLUMN_TASKS_STATUS)));
-		retrievedTask.setIdIfNotSet(Integer.parseInt(resultSet.getString(COLUMN_TASKS_ID)));
+		if (resultSet.next()) {
+			retrievedTask = new Task(resultSet.getString(COLUMN_TASKS_TITLE));
+			retrievedTask.setStatus(Status.valueOf(resultSet.getString(COLUMN_TASKS_STATUS)));
+			retrievedTask.setIdIfNotSet(Integer.parseInt(resultSet.getString(COLUMN_TASKS_ID)));
+		}
 		resultSet.close();
 
 		return retrievedTask;
 	}
 
 	public Task[] getAllTasks() throws SQLException {
+		this.ensureTasksTableExists();
+
 		Task retrievedTasks[];
 		String statement = "SELECT * FROM " + TABLE_TASKS;
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -101,7 +107,7 @@ public class DatabaseHandler {
 		return retrievedTasks;
 	}
 
-	private void createTasksTable() throws SQLException {
+	private void ensureTasksTableExists() throws SQLException {
 		Statement statement = connection.createStatement();
 		statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " (" + COLUMN_TASKS_ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TASKS_TITLE + " TEXT, " + COLUMN_TASKS_STATUS

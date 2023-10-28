@@ -17,22 +17,22 @@ import com.cainfe.task_manager.service.DatabaseHandler;
 
 class DatabaseHandlerTest {
 	private DatabaseHandler databaseHandler;
+	private String testDatabaseName = "testtasks.db";
 
 	@BeforeEach
 	void setUp() throws Exception {
 		databaseHandler = new DatabaseHandler();
-		databaseHandler.connect("testtasks.db");
+		databaseHandler.connect(testDatabaseName);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		databaseHandler.close();
-		new File("testtasks.db").delete();
+		this.deleteDatabase();
 	}
 
 	@Test
 	void testConnect() throws Exception {
-		assertTrue(new File("testtasks.db").exists());
+		assertTrue(new File(testDatabaseName).exists());
 	}
 
 	@Test
@@ -46,6 +46,11 @@ class DatabaseHandlerTest {
 		databaseHandler.insertTask(taskWithId);
 		assertEquals(taskWithoutId, databaseHandler.getTask(1));
 		assertEquals(taskWithId, databaseHandler.getTask(3));
+		assertEquals(null, databaseHandler.getTask(101));
+
+		this.deleteDatabase();
+		databaseHandler.connect(testDatabaseName);
+		assertEquals(null, databaseHandler.getTask(1));
 	}
 
 	@Test
@@ -61,7 +66,6 @@ class DatabaseHandlerTest {
 		insertedTasks.add(task1);
 		insertedTasks.add(task2);
 		insertedTasks.add(task3);
-
 		for (Task task : insertedTasks) {
 			databaseHandler.insertTask(task);
 		}
@@ -69,10 +73,16 @@ class DatabaseHandlerTest {
 		List<Task> returnedTasks = Arrays.asList(databaseHandler.getAllTasks());
 
 		assertEquals(3, returnedTasks.size());
-		System.out.println(Arrays.toString(insertedTasks.toArray()));
-		System.out.println(Arrays.toString(returnedTasks.toArray()));
-
 		assertTrue(returnedTasks.containsAll(insertedTasks));
+
+		this.deleteDatabase();
+		databaseHandler.connect(testDatabaseName);
+		assertEquals(0, databaseHandler.getAllTasks().length);
+	}
+
+	void deleteDatabase() throws Exception {
+		databaseHandler.close();
+		new File(testDatabaseName).delete();
 	}
 
 }
