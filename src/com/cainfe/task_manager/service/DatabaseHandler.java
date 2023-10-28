@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cainfe.task_manager.model.Status;
 import com.cainfe.task_manager.model.Task;
@@ -64,6 +66,7 @@ public class DatabaseHandler {
 	}
 
 	public Task getTask(int id) throws SQLException {
+		Task retrievedTask;
 		String statement = "SELECT " + COLUMN_TASKS_ID + ", " + COLUMN_TASKS_TITLE + ", " + COLUMN_TASKS_STATUS
 				+ " FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASKS_ID + " = ?;";
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -71,11 +74,31 @@ public class DatabaseHandler {
 		preparedStatement.setString(1, id + "");
 
 		ResultSet resultSet = preparedStatement.executeQuery();
-		Task task = new Task(resultSet.getString(COLUMN_TASKS_TITLE));
-		task.setStatus(Status.valueOf(resultSet.getString(COLUMN_TASKS_STATUS)));
-		task.setIdIfNotSet(Integer.parseInt(resultSet.getString(COLUMN_TASKS_ID)));
+		retrievedTask = new Task(resultSet.getString(COLUMN_TASKS_TITLE));
+		retrievedTask.setStatus(Status.valueOf(resultSet.getString(COLUMN_TASKS_STATUS)));
+		retrievedTask.setIdIfNotSet(Integer.parseInt(resultSet.getString(COLUMN_TASKS_ID)));
+		resultSet.close();
 
-		return task;
+		return retrievedTask;
+	}
+
+	public Task[] getAllTasks() throws SQLException {
+		Task retrievedTasks[];
+		String statement = "SELECT * FROM " + TABLE_TASKS;
+		PreparedStatement preparedStatement = connection.prepareStatement(statement);
+
+		ResultSet resultSet = preparedStatement.executeQuery();
+		List<Task> tasks = new ArrayList<>();
+		while (resultSet.next()) {
+			Task task = new Task(resultSet.getString(COLUMN_TASKS_TITLE));
+			task.setStatus(Status.valueOf(resultSet.getString(COLUMN_TASKS_STATUS)));
+			task.setIdIfNotSet(Integer.parseInt(resultSet.getString(COLUMN_TASKS_ID)));
+			tasks.add(task);
+		}
+		resultSet.close();
+
+		retrievedTasks = tasks.toArray(new Task[tasks.size()]);
+		return retrievedTasks;
 	}
 
 	private void createTasksTable() throws SQLException {
@@ -90,3 +113,5 @@ public class DatabaseHandler {
 		connection.close();
 	}
 }
+
+//TODO: thought - enum containing all database querry strings and perhaps classes to handle parsing the output???
