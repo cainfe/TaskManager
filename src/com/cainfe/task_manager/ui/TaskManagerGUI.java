@@ -1,5 +1,7 @@
 package com.cainfe.task_manager.ui;
 
+import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -9,7 +11,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
 
 import com.cainfe.task_manager.service.ExitApplication;
 
@@ -18,11 +19,13 @@ public class TaskManagerGUI extends JFrame {
 	private JPanel contentPane;
 
 	public TaskManagerGUI() {
+		Dimension screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds().getSize();
+
 		setTitle("Task Manager");
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 300, 450);
+		setSize(300, 450);
+		setLocation(screenSize.width - 50 - this.getWidth(), 100);
 		this.setupExitApplication();
-
 		this.addMenuBar();
 
 		contentPane = new JPanel();
