@@ -1,7 +1,9 @@
 package com.cainfe.task_manager.ui;
 
-import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -19,7 +21,10 @@ public class TaskManagerGUI extends JFrame {
 	private JPanel contentPane;
 
 	public TaskManagerGUI() {
-		Dimension screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds().getSize();
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		GraphicsDevice defaultScreenDevice = graphicsEnvironment.getDefaultScreenDevice();
+		GraphicsConfiguration graphicsConfiguration = defaultScreenDevice.getDefaultConfiguration();
+		Rectangle screenSize = graphicsConfiguration.getBounds();
 
 		setTitle("Task Manager");
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
