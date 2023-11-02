@@ -91,49 +91,49 @@ class DatabaseHandlerTest {
 
 	@Test
 	void testSelectTasks() throws Exception {
-	  Task task = new Task("Test task");
-	  databaseHandler.insertTask(task);
-	  ResultSet results = databaseHandler.selectTasks("*");
-	  assertEquals("Test task", results.getString("Title"));
-	  results.close();
+		Task task = new Task("Test task");
+		databaseHandler.insertTask(task);
+		ResultSet results = databaseHandler.selectTasks("*");
+		assertEquals("Test task", results.getString("Title"));
+		results.close();
 
-	  results = databaseHandler.selectTasks("*", null);
-	  assertEquals("Test task", results.getString("Title"));
-	  results.close();
+		results = databaseHandler.selectTasks("*", null);
+		assertEquals("Test task", results.getString("Title"));
+		results.close();
 
-	  results = databaseHandler.selectTasks("*", " ");
-	  assertEquals("Test task", results.getString("Title"));
-	  results.close();
+		results = databaseHandler.selectTasks("*", " ");
+		assertEquals("Test task", results.getString("Title"));
+		results.close();
 
-	  Task task2 = new Task("another test task");
-	  task2.setIdIfNotSet(101);
-	  databaseHandler.insertTask(task2);
-	  results = databaseHandler.selectTasks("*", "id = 101");
-	  results.next();
-	  assertEquals("another test task", results.getString("Title"));
-	  assertFalse(results.next());
+		Task task2 = new Task("another test task");
+		task2.setIdIfNotSet(101);
+		databaseHandler.insertTask(task2);
+		results = databaseHandler.selectTasks("*", "id = 101");
+		results.next();
+		assertEquals("another test task", results.getString("Title"));
+		assertFalse(results.next());
 
-	  thrown = assertThrows(IllegalArgumentException.class, () -> {
-		  databaseHandler.selectTasks(null, "");
-	  });
-	  assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
+		thrown = assertThrows(IllegalArgumentException.class, () -> {
+			databaseHandler.selectTasks(null, "");
+		});
+		assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
 
-	  thrown = assertThrows(IllegalArgumentException.class, () -> {
-		  databaseHandler.selectTasks(" ", "");
-	  });
-	  assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
+		thrown = assertThrows(IllegalArgumentException.class, () -> {
+			databaseHandler.selectTasks(" ", "");
+		});
+		assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
 
-	  thrown = assertThrows(IllegalArgumentException.class, () -> {
-		  databaseHandler.selectTasks(null);
-	  });
-	  assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
+		thrown = assertThrows(IllegalArgumentException.class, () -> {
+			databaseHandler.selectTasks(null);
+		});
+		assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
 
-	  thrown = assertThrows(IllegalArgumentException.class, () -> {
-		  databaseHandler.selectTasks(" ");
-	  });
-	  assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
+		thrown = assertThrows(IllegalArgumentException.class, () -> {
+			databaseHandler.selectTasks(" ");
+		});
+		assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
 
-	  databaseHandler.close();
+		databaseHandler.close();
 	}
 
 }

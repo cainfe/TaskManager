@@ -24,7 +24,7 @@ public class DatabaseHandler {
 	}
 
 	public void insertTask(Task task) throws SQLException {
-		Task[] tasks = {task};
+		Task[] tasks = { task };
 		this.insertTasks(tasks);
 	}
 
@@ -67,7 +67,8 @@ public class DatabaseHandler {
 	public Task getTask(int id) throws SQLException {
 		Task retrievedTask = null;
 
-		ResultSet resultSet = this.selectTasks(COLUMN_TASKS_ID + ", " + COLUMN_TASKS_TITLE + ", " + COLUMN_TASKS_STATUS, COLUMN_TASKS_ID + " = " + id);
+		ResultSet resultSet = this.selectTasks(COLUMN_TASKS_ID + ", " + COLUMN_TASKS_TITLE + ", " + COLUMN_TASKS_STATUS,
+				COLUMN_TASKS_ID + " = " + id);
 
 		if (resultSet.next()) {
 			retrievedTask = new Task(resultSet.getString(COLUMN_TASKS_TITLE));

@@ -18,7 +18,7 @@ import com.cainfe.task_manager.service.ExitApplication;
 
 public class TaskManagerGUI extends JFrame {
 	private ExitApplication exitApplication;
-	private JPanel contentPane;
+	private JPanel taskListPanel;
 
 	public TaskManagerGUI() {
 		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -32,11 +32,8 @@ public class TaskManagerGUI extends JFrame {
 		setLocation(screenSize.width - 50 - this.getWidth(), 100);
 		this.setupExitApplication();
 		this.addMenuBar();
-
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
+		taskListPanel = new JPanel();
+		setContentPane(taskListPanel);
 
 		addWindowListener(new WindowAdapter() {
 			@Override
