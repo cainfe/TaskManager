@@ -2,11 +2,19 @@ package com.cainfe.task_manager;
 
 import java.awt.EventQueue;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cainfe.task_manager.ui.TaskManagerGUI;
 
 public class App {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+	
 	public static void main(String[] args) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("App started");
+		}
+		
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
