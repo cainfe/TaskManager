@@ -118,6 +118,15 @@ public class DatabaseHandler {
 		return this.selectTasks(properties, null);
 	}
 
+	public void deleteTaskWithID(int taskID) throws SQLException {
+		this.ensureTasksTableExists();
+		String statement = "DELETE FROM " + TABLE_TASKS 
+				+ " WHERE " + COLUMN_TASKS_ID + " = " + taskID;
+		
+		PreparedStatement preparedStatement = connection.prepareStatement(statement);
+		preparedStatement.execute();
+	}
+	
 	private void ensureTasksTableExists() throws SQLException {
 		Statement statement = connection.createStatement();
 		statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " (" + COLUMN_TASKS_ID

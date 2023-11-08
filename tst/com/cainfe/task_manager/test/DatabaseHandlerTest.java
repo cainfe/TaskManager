@@ -2,6 +2,8 @@ package com.cainfe.task_manager.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -136,4 +138,12 @@ class DatabaseHandlerTest {
 		databaseHandler.close();
 	}
 
+	@Test
+	void testDeleteTaskWithID() throws Exception {
+		databaseHandler.insertTask(new Task("task"));
+		databaseHandler.insertTask(new Task("task2"));
+		databaseHandler.deleteTaskWithID(1);
+		assertNull(databaseHandler.getTask(1));
+		assertNotNull(databaseHandler.getTask(2));
+	}
 }
