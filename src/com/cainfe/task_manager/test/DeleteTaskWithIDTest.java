@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cainfe.task_manager.model.Task;
-import com.cainfe.task_manager.service.DatabaseHandler;
-import com.cainfe.task_manager.service.DeleteTaskWithID;
+import main.java.com.cainfe.task_manager.model.Task;
+import main.java.com.cainfe.task_manager.service.DatabaseHandler;
+import main.java.com.cainfe.task_manager.service.DeleteTaskWithID;
 
 class DeleteTaskWithIDTest {
 

@@ -1,4 +1,4 @@
-package com.cainfe.task_manager.service;
+package main.java.com.cainfe.task_manager.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,8 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cainfe.task_manager.model.Status;
-import com.cainfe.task_manager.model.Task;
+import main.java.com.cainfe.task_manager.model.Status;
+import main.java.com.cainfe.task_manager.model.Task;
 
 public class DatabaseHandler {
 	private Connection connection;

@@ -1,4 +1,4 @@
-package com.cainfe.task_manager.model;
+package main.java.com.cainfe.task_manager.model;
 
 import javax.swing.ImageIcon;
 

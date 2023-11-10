@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cainfe.task_manager.model.Status;
-import com.cainfe.task_manager.model.Task;
+import main.java.com.cainfe.task_manager.model.Status;
+import main.java.com.cainfe.task_manager.model.Task;
 
 class TaskTest {
 	Task task;

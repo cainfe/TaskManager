@@ -1,4 +1,4 @@
-package com.cainfe.task_manager.service;
+package main.java.com.cainfe.task_manager.service;
 
 import java.awt.event.ActionEvent;
 

@@ -1,4 +1,4 @@
-package com.cainfe.task_manager.test;
+package test.java.com.cainfe.task_manager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cainfe.task_manager.ui.TaskManagerGUI;
+import main.java.com.cainfe.task_manager.ui.TaskManagerGUI;
 
 class TaskManagerGUITest {
 	TaskManagerGUI frame;

@@ -1,4 +1,4 @@
-package com.cainfe.task_manager.test;
+package test.java.com.cainfe.task_manager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cainfe.task_manager.service.ExitApplication;
+import main.java.com.cainfe.task_manager.service.ExitApplication;
 
 class ExitApplicationTest {
 	private ExitApplication action;

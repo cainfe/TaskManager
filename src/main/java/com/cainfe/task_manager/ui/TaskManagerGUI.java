@@ -1,4 +1,4 @@
-package com.cainfe.task_manager.ui;
+package main.java.com.cainfe.task_manager.ui;
 
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
@@ -14,7 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import com.cainfe.task_manager.service.ExitApplication;
+import main.java.com.cainfe.task_manager.service.ExitApplication;
 
 public class TaskManagerGUI extends JFrame {
 	private ExitApplication exitApplication;

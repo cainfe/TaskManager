@@ -1,11 +1,11 @@
-package com.cainfe.task_manager;
+package main.java.com.cainfe.task_manager;
 
 import java.awt.EventQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cainfe.task_manager.ui.TaskManagerGUI;
+import main.java.com.cainfe.task_manager.ui.TaskManagerGUI;
 
 public class App {
 	private static final Logger LOGGER = LoggerFactory.getLogger(App.class);

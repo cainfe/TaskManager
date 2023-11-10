@@ -1,4 +1,4 @@
-package com.cainfe.task_manager.test;
+package test.java.com.cainfe.task_manager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,8 +17,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cainfe.task_manager.model.Task;
-import com.cainfe.task_manager.service.DatabaseHandler;
+import main.java.com.cainfe.task_manager.model.Task;
+import main.java.com.cainfe.task_manager.service.DatabaseHandler;
 
 class DatabaseHandlerTest {
 	private DatabaseHandler databaseHandler;
