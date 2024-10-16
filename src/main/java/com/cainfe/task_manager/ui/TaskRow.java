@@ -36,6 +36,9 @@ public class TaskRow extends JPanel {
 	
 	private Component createStatusSection() {
 		JButton statusButton = new JButton();
+		statusButton.setIcon(task.getStatus().getIcon());
+		statusButton.setContentAreaFilled(false);
+		statusButton.setBorder(null);
 		return statusButton;
 	}
 	
