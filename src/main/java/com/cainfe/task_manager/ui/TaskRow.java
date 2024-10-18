@@ -1,5 +1,6 @@
 package main.java.com.cainfe.task_manager.ui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -38,7 +39,7 @@ public class TaskRow extends JPanel {
 	private Component createStatusSection() {
 		JButton statusButton = new JButton();
 		statusButton.setIcon(task.getStatusIcon());
-		statusButton.setContentAreaFilled(false);
+		statusButton.setBackground(Color.WHITE);
 		statusButton.setBorder(null);
 		return statusButton;
 	}
@@ -52,7 +53,7 @@ public class TaskRow extends JPanel {
 		// Trash icon when clicked deletes the task
 		JButton deleteButton = new JButton();
 		deleteButton.setIcon(IconLoader.loadIcon("images/trash.png"));
-		deleteButton.setContentAreaFilled(false);
+		deleteButton.setBackground(Color.WHITE);
 		deleteButton.setBorder(null);
 		return deleteButton;
 	}
