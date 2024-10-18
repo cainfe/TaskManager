@@ -23,7 +23,7 @@ public class TaskPanel extends JPanel {
 			
 			if (i == tasks.length - 1) {
 				constraints.weighty = 1;
-				constraints.anchor = GridBagConstraints.NORTH; // Change anchor to NORTH
+				constraints.anchor = GridBagConstraints.NORTH;
 			}
 			
 			add(new TaskRow(tasks[i]), constraints);

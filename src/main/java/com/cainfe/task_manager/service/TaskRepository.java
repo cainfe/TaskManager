@@ -1,7 +1,6 @@
 package main.java.com.cainfe.task_manager.service;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +18,8 @@ public class TaskRepository {
 	private final String COL_STATUS = "Status";
 	private final String COL_ID = "Id";
 
-	public void connect(String url) throws SQLException {
-		connection = DriverManager.getConnection("jdbc:sqlite:" + url);
+	public void connect() throws SQLException {
+		connection = Database.getConnection();
 	}
 
 	public void insertTask(Task task) throws SQLException {

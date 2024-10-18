@@ -22,7 +22,7 @@ class DeleteTaskWithIDTest {
 	@Test
 	void testActionPerformed() throws Exception {
 		TaskRepository dbhandler = new TaskRepository();
-		dbhandler.connect("testtasks.db");
+		dbhandler.connect();
 		Task task = new Task("test task");
 		task.setIdIfNotSet(1);
 		Task task2 = new Task("test task");
@@ -33,7 +33,7 @@ class DeleteTaskWithIDTest {
 		assertNotNull(dbhandler.getTask(1));
 		deleteTaskAction.actionPerformed(null);
 		assertNull(dbhandler.getTask(1));
-		new File("testtasks.db").delete();
+		new File("task_manager.db").delete();
 		
 		dbhandler.close();
 	}

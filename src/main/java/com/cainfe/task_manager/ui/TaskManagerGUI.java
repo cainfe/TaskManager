@@ -35,7 +35,7 @@ public class TaskManagerGUI extends JFrame {
 		JScrollPane scrollPane;
 		try {
 			TaskRepository taskRepository = new TaskRepository();
-			taskRepository.connect("tasks.db");
+			taskRepository.connect();
 			scrollPane = new JScrollPane(new TaskPanel(taskRepository.getAllTasks()));
 		} catch (SQLException e) {
 			System.err.println("Error connecting to database: " + e.getMessage());

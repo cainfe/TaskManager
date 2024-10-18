@@ -20,15 +20,15 @@ import org.junit.jupiter.api.Test;
 import main.java.com.cainfe.task_manager.model.Task;
 import main.java.com.cainfe.task_manager.service.TaskRepository;
 
-class DatabaseHandlerTest {
-	private TaskRepository databaseHandler;
-	private String testDatabaseName = "testtasks.db";
+class TaskRepositoryTest {
+	private TaskRepository taskRepository;
+	private String databaseName = "task_manager.db";
 	private Exception thrown;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		databaseHandler = new TaskRepository();
-		databaseHandler.connect(testDatabaseName);
+		taskRepository = new TaskRepository();
+		taskRepository.connect();
 	}
 
 	@AfterEach
@@ -38,7 +38,7 @@ class DatabaseHandlerTest {
 
 	@Test
 	void testConnect() throws Exception {
-		assertTrue(new File(testDatabaseName).exists());
+		assertTrue(new File(databaseName).exists());
 	}
 
 	@Test
@@ -47,16 +47,16 @@ class DatabaseHandlerTest {
 		Task taskWithoutId = new Task(title);
 		Task taskWithId = new Task(title);
 		taskWithId.setIdIfNotSet(3);
-		databaseHandler.insertTask(taskWithoutId);
+		taskRepository.insertTask(taskWithoutId);
 		taskWithoutId.setIdIfNotSet(1);
-		databaseHandler.insertTask(taskWithId);
-		assertEquals(taskWithoutId, databaseHandler.getTask(1));
-		assertEquals(taskWithId, databaseHandler.getTask(3));
-		assertEquals(null, databaseHandler.getTask(101));
+		taskRepository.insertTask(taskWithId);
+		assertEquals(taskWithoutId, taskRepository.getTask(1));
+		assertEquals(taskWithId, taskRepository.getTask(3));
+		assertEquals(null, taskRepository.getTask(101));
 
 		this.deleteDatabase();
-		databaseHandler.connect(testDatabaseName);
-		assertEquals(null, databaseHandler.getTask(1));
+		taskRepository.connect();
+		assertEquals(null, taskRepository.getTask(1));
 	}
 
 	@Test
@@ -73,77 +73,77 @@ class DatabaseHandlerTest {
 		insertedTasks.add(task2);
 		insertedTasks.add(task3);
 		for (Task task : insertedTasks) {
-			databaseHandler.insertTask(task);
+			taskRepository.insertTask(task);
 		}
 
-		List<Task> returnedTasks = Arrays.asList(databaseHandler.getAllTasks());
+		List<Task> returnedTasks = Arrays.asList(taskRepository.getAllTasks());
 
 		assertEquals(3, returnedTasks.size());
 		assertTrue(returnedTasks.containsAll(insertedTasks));
 
 		this.deleteDatabase();
-		databaseHandler.connect(testDatabaseName);
-		assertEquals(0, databaseHandler.getAllTasks().length);
+		taskRepository.connect();
+		assertEquals(0, taskRepository.getAllTasks().length);
 	}
 
 	void deleteDatabase() throws Exception {
-		databaseHandler.close();
-		new File(testDatabaseName).delete();
+		taskRepository.close();
+		new File(databaseName).delete();
 	}
 
 	@Test
 	void testSelectTasks() throws Exception {
 		Task task = new Task("Test task");
-		databaseHandler.insertTask(task);
-		ResultSet results = databaseHandler.selectTasks("*");
+		taskRepository.insertTask(task);
+		ResultSet results = taskRepository.selectTasks("*");
 		assertEquals("Test task", results.getString("Title"));
 		results.close();
 
-		results = databaseHandler.selectTasks("*", null);
+		results = taskRepository.selectTasks("*", null);
 		assertEquals("Test task", results.getString("Title"));
 		results.close();
 
-		results = databaseHandler.selectTasks("*", " ");
+		results = taskRepository.selectTasks("*", " ");
 		assertEquals("Test task", results.getString("Title"));
 		results.close();
 
 		Task task2 = new Task("another test task");
 		task2.setIdIfNotSet(101);
-		databaseHandler.insertTask(task2);
-		results = databaseHandler.selectTasks("*", "id = 101");
+		taskRepository.insertTask(task2);
+		results = taskRepository.selectTasks("*", "id = 101");
 		results.next();
 		assertEquals("another test task", results.getString("Title"));
 		assertFalse(results.next());
 
 		thrown = assertThrows(IllegalArgumentException.class, () -> {
-			databaseHandler.selectTasks(null, "");
+			taskRepository.selectTasks(null, "");
 		});
 		assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
 
 		thrown = assertThrows(IllegalArgumentException.class, () -> {
-			databaseHandler.selectTasks(" ", "");
+			taskRepository.selectTasks(" ", "");
 		});
 		assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
 
 		thrown = assertThrows(IllegalArgumentException.class, () -> {
-			databaseHandler.selectTasks(null);
+			taskRepository.selectTasks(null);
 		});
 		assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
 
 		thrown = assertThrows(IllegalArgumentException.class, () -> {
-			databaseHandler.selectTasks(" ");
+			taskRepository.selectTasks(" ");
 		});
 		assertEquals("The properties parameter cannot be null or empty.", thrown.getMessage());
 
-		databaseHandler.close();
+		taskRepository.close();
 	}
 
 	@Test
 	void testDeleteTaskWithID() throws Exception {
-		databaseHandler.insertTask(new Task("task"));
-		databaseHandler.insertTask(new Task("task2"));
-		databaseHandler.deleteTaskWithID(1);
-		assertNull(databaseHandler.getTask(1));
-		assertNotNull(databaseHandler.getTask(2));
+		taskRepository.insertTask(new Task("task"));
+		taskRepository.insertTask(new Task("task2"));
+		taskRepository.deleteTaskWithID(1);
+		assertNull(taskRepository.getTask(1));
+		assertNotNull(taskRepository.getTask(2));
 	}
 }
