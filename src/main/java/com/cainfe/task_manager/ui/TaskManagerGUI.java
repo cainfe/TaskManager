@@ -3,6 +3,7 @@ package main.java.com.cainfe.task_manager.ui;
 import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -12,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
+import main.java.com.cainfe.task_manager.service.TaskRepository;
 import main.java.com.cainfe.task_manager.service.ExitApplication;
 
 public class TaskManagerGUI extends JFrame {
@@ -30,7 +32,15 @@ public class TaskManagerGUI extends JFrame {
 		this.setupExitApplication();
 		this.addMenuBar();
 		
-		JScrollPane scrollPane = new JScrollPane(new TaskPanel());
+		JScrollPane scrollPane;
+		try {
+			TaskRepository taskRepository = new TaskRepository();
+			taskRepository.connect("tasks.db");
+			scrollPane = new JScrollPane(new TaskPanel(taskRepository.getAllTasks()));
+		} catch (SQLException e) {
+			System.err.println("Error connecting to database: " + e.getMessage());
+            scrollPane = new JScrollPane();
+		}
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPane.getViewport().setViewPosition(new Point(0, 0));
 		setContentPane(scrollPane);

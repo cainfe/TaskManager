@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import javax.swing.AbstractAction;
 
 public class DeleteTaskWithID extends AbstractAction {
-	private DatabaseHandler dbHandler;
+	private TaskRepository dbHandler;
 	private int taskID;
 	
-	public DeleteTaskWithID(DatabaseHandler dbHandler, int taskID) {
+	public DeleteTaskWithID(TaskRepository dbHandler, int taskID) {
 		this.dbHandler = dbHandler;
 		this.taskID = taskID;
 	}

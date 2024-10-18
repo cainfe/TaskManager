@@ -18,16 +18,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import main.java.com.cainfe.task_manager.model.Task;
-import main.java.com.cainfe.task_manager.service.DatabaseHandler;
+import main.java.com.cainfe.task_manager.service.TaskRepository;
 
 class DatabaseHandlerTest {
-	private DatabaseHandler databaseHandler;
+	private TaskRepository databaseHandler;
 	private String testDatabaseName = "testtasks.db";
 	private Exception thrown;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		databaseHandler = new DatabaseHandler();
+		databaseHandler = new TaskRepository();
 		databaseHandler.connect(testDatabaseName);
 	}
 

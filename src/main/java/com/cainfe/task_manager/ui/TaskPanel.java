@@ -11,23 +11,22 @@ public class TaskPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public TaskPanel() {
+	public TaskPanel(Task[] tasks) {
 		setLayout(new GridBagLayout());
 		
-		for (int i = 0; i < 25; i++) {
+		for (int i = 0; i < tasks.length; i++) {
 			GridBagConstraints constraints = new GridBagConstraints();
 			constraints.gridx = 0;
 			constraints.gridy = i;
 			constraints.weightx = 1;
 			constraints.fill = GridBagConstraints.HORIZONTAL;
 			
-			if (i == 24) {
+			if (i == tasks.length - 1) {
 				constraints.weighty = 1;
-				constraints.anchor = GridBagConstraints.LINE_START;
+				constraints.anchor = GridBagConstraints.NORTH; // Change anchor to NORTH
 			}
 			
-			add(new TaskRow(new Task("test task " + i)), constraints);
+			add(new TaskRow(tasks[i]), constraints);
 		}
 	}
-
 }

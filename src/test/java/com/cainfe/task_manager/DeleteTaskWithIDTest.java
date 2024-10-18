@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import main.java.com.cainfe.task_manager.model.Task;
-import main.java.com.cainfe.task_manager.service.DatabaseHandler;
+import main.java.com.cainfe.task_manager.service.TaskRepository;
 import main.java.com.cainfe.task_manager.service.DeleteTaskWithID;
 
 class DeleteTaskWithIDTest {
@@ -21,7 +21,7 @@ class DeleteTaskWithIDTest {
 
 	@Test
 	void testActionPerformed() throws Exception {
-		DatabaseHandler dbhandler = new DatabaseHandler();
+		TaskRepository dbhandler = new TaskRepository();
 		dbhandler.connect("testtasks.db");
 		Task task = new Task("test task");
 		task.setIdIfNotSet(1);
