@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import main.java.com.cainfe.task_manager.model.Task;
+import main.java.com.cainfe.task_manager.util.IconLoader;
 
 public class TaskRow extends JPanel {
 	private Task task;
@@ -36,7 +37,7 @@ public class TaskRow extends JPanel {
 	
 	private Component createStatusSection() {
 		JButton statusButton = new JButton();
-		statusButton.setIcon(task.getStatus().getIcon());
+		statusButton.setIcon(task.getStatusIcon());
 		statusButton.setContentAreaFilled(false);
 		statusButton.setBorder(null);
 		return statusButton;
@@ -48,7 +49,11 @@ public class TaskRow extends JPanel {
 	}
 	
 	private Component createDeleteSection() {
+		// Trash icon when clicked deletes the task
 		JButton deleteButton = new JButton();
+		deleteButton.setIcon(IconLoader.loadIcon("images/trash.png"));
+		deleteButton.setContentAreaFilled(false);
+		deleteButton.setBorder(null);
 		return deleteButton;
 	}
 	

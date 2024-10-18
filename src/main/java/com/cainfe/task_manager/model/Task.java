@@ -1,5 +1,7 @@
 package main.java.com.cainfe.task_manager.model;
 
+import javax.swing.ImageIcon;
+
 public class Task {
 	private String title;
 	private Status status;
@@ -33,6 +35,10 @@ public class Task {
 
 	public Status getStatus() {
 		return this.status;
+	}
+	
+	public ImageIcon getStatusIcon() {
+		return this.status.getIcon();
 	}
 
 	public void setStatus(Status status) {
